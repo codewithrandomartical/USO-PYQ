@@ -11,7 +11,7 @@
     <meta name="author" content="Student Community Core ( VVIT ) Technical Team">
     <meta name="robots" content="index, follow">
 
-    <!-- ✅ Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <!-- ✅ Open Graph -->
     <meta property="og:site_name" content="Student Community Core ( VVIT )">
     <meta property="og:title" content="Student Community Core ( VVIT ) | Official Dashboard">
     <meta property="og:description" content="Access live student records, department analytics, active batches and the complete directory of CSE & BCA students through the official Student Community Core ( VVIT ) portal.">
@@ -55,12 +55,6 @@
             background-color: #111827; /* Gray-900 */
         }
 
-        /* Google Brand Colors (still usable for accents) */
-        .text-g-blue { color: #4285F4; }
-        .text-g-red { color: #EA4335; }
-        .text-g-yellow { color: #FBBC05; }
-        .text-g-green { color: #34A853; }
-
         /* Nav Buttons */
         .nav-btn {
             background: linear-gradient(90deg, #4f46e5 0%, #4338ca 100%);
@@ -97,13 +91,12 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        /* Border Colors */
         .border-blue-b { border-bottom-color: #3b82f6; }
         .border-green-b { border-bottom-color: #22c55e; }
         .border-yellow-b { border-bottom-color: #eab308; }
         .border-red-b { border-bottom-color: #ef4444; }
 
-        /* Custom Table */
+        /* Table */
         .custom-table th {
             font-size: 0.7rem;
             text-transform: uppercase;
@@ -131,7 +124,7 @@
             animation: fadeIn 0.4s ease-out forwards;
         }
         
-        /* Custom Scrollbar */
+        /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
@@ -213,7 +206,7 @@
                             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 mb-4">
                                 <i class="fa-solid fa-users text-lg sm:text-xl"></i>
                             </div>
-                            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800" id="total-students">62</h2>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800" id="total-students">0</h2>
                             <p class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">Total Students</p>
                         </div>
                         <div class="absolute -right-6 -top-6 w-20 h-20 sm:w-24 sm:h-24 bg-blue-50 rounded-full opacity-50"></div>
@@ -294,7 +287,7 @@
                 <div class="p-4 sm:p-5 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4 bg-gray-50/30">
                     <div class="flex items-center space-x-2">
                         <span class="bg-indigo-50 px-3 sm:px-4 py-1.5 rounded-lg border border-indigo-100 text-[11px] sm:text-xs font-bold text-indigo-700 uppercase tracking-wide">
-                            Total Records: <span id="total-records-badge" class="ml-1 text-sm">62</span>
+                            Total Records: <span id="total-records-badge" class="ml-1 text-sm">0</span>
                         </span>
                     </div>
                     
@@ -372,13 +365,15 @@
 
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
 
-        // --- Data: 62 Students ---
+        // --- Data: from PDF (Anushka + Aparna fixed at top) ---
         const students = [
-            // Page 1
+            // Top priority
             { name: "Anushka Jha", roll: "12464", branch: "CSE", sem: "3rd Sem", email: "anushka.jha1705@gmail.com", phone: "7633979154" },
             { name: "Aparna Kumari", roll: "12463", branch: "CSE", sem: "3rd Sem", email: "kaparna767@gmail.com", phone: "9153681400" },
-            { name: "Vivek Kumar Sah", roll: "12458", branch: "CSE", sem: "3rd Sem", email: "studevivek2004@gmail.com", phone: "9570666092" },
+
+            // Rest from file
             { name: "Kumar Priyam", roll: "12422", branch: "CSE", sem: "3rd Sem", email: "priyamlapy9@gmail.com", phone: "7903906461" },
+            { name: "Vivek Kumar Sah", roll: "12458", branch: "CSE", sem: "3rd Sem", email: "studevivek2004@gmail.com", phone: "9570666092" },
             { name: "Aditya Kumar Raj", roll: "12514", branch: "CSE", sem: "1st Sem", email: "aditya1852005@gmail.com", phone: "968020248" },
             { name: "Rahul Kumar", roll: "12526", branch: "CSE", sem: "1st Sem", email: "rahul9128703420@gmail.com", phone: "9128703420" },
             { name: "Ankit Kumar", roll: "12530", branch: "CSE", sem: "1st Sem", email: "ankit95071kumar2008@gmail.com", phone: "9234990891" },
@@ -394,9 +389,8 @@
             { name: "Komal Kumari", roll: "12562", branch: "CSE", sem: "1st Sem", email: "komalkumari.singh741@gmail.com", phone: "7633017976" },
             { name: "Anubhav Kumar", roll: "12570", branch: "CSE", sem: "1st Sem", email: "brandedanshu@gmail.com", phone: "7479822720" },
             { name: "Jay Kumar", roll: "824082", branch: "BCA", sem: "3rd Sem", email: "jayadav@gmail.com", phone: "9570871346" },
-            // Page 2
             { name: "Sakshi Kumari", roll: "824185", branch: "BCA", sem: "3rd Sem", email: "adorablesakshi0007@gmail.com", phone: "8809733546" },
-            { name: "Hasan Raja", roll: "825083", branch: "BCA", sem: "1st Sem", email: "hassan8825083@gmail.com", phone: "9939247792" },
+            { name: "Hasan Raja", roll: "825083", branch: "BCA", sem: "1st Sem", email: "hasan8825083@gmail.com", phone: "9939247792" },
             { name: "Kinshu Kumar", roll: "825094", branch: "BCA", sem: "1st Sem", email: "xaekks@gmail.com", phone: "8809097140" },
             { name: "Chhotu Kumar Sah", roll: "825149", branch: "BCA", sem: "1st Sem", email: "ck0570916@gmail.com", phone: "7061718681" },
             { name: "Aditya Raj Mishra", roll: "825127", branch: "BCA", sem: "1st Sem", email: "aadimishra401@gmail.com", phone: "8252050651" },
@@ -415,7 +409,6 @@
             { name: "Pratibha Roy", roll: "825091", branch: "BCA", sem: "1st Sem", email: "raypratibha45@gmail.com", phone: "6299271296" },
             { name: "Sujal Kumar", roll: "12559", branch: "CSE", sem: "1st Sem", email: "anshu0101roy@gmail.com", phone: "9631982209" },
             { name: "Manjesh Kumar", roll: "12542", branch: "CSE", sem: "1st Sem", email: "Manjeshroy987@gmail.com", phone: "7549489579" },
-            // Page 3
             { name: "Rishabh Singh", roll: "823051", branch: "BCA", sem: "5th Sem", email: "rishabhsingh8409@gmail.com", phone: "8340555204" },
             { name: "Snigdha Singh", roll: "12447", branch: "CSE", sem: "3rd Sem", email: "snigdhasingh879@gmail.com", phone: "8299420617" },
             { name: "Neha Kumari", roll: "825099", branch: "BCA", sem: "1st Sem", email: "nehakumari471650@gmail.com", phone: "9279997018" },
@@ -427,19 +420,18 @@
             { name: "Palash Karar", roll: "12527", branch: "CSE", sem: "1st Sem", email: "palashkarar80@gmail.com", phone: "-" },
             { name: "Rahul Kumar", roll: "12538", branch: "CSE", sem: "1st Sem", email: "rahulkumarto9262584906@gmail.com", phone: "-" },
             { name: "Aditya Raj", roll: "12540", branch: "CSE", sem: "1st Sem", email: "novawuther@gmail.com", phone: "9801365390" },
-            { name: "Manjesh Kumar", roll: "12542", branch: "CSE", sem: "1st Sem", email: "manjeshroy987@gmail.com", phone: "-" },
             { name: "Manish Kumar", roll: "12543", branch: "CSE", sem: "1st Sem", email: "tsmanish08@gmail.com", phone: "8969502006" },
             { name: "Soni Kumari", roll: "12552", branch: "CSE", sem: "1st Sem", email: "kumarisoni57884@gmail.com", phone: "9508572481" },
             { name: "Chandan Karmkar", roll: "825014", branch: "BCA", sem: "1st Sem", email: "chandan.karmkar014@gmail.com", phone: "6206170952" },
             { name: "Saddam Husein", roll: "825084", branch: "BCA", sem: "1st Sem", email: "saddamhusen57342@gmail.com", phone: "9102220049" },
-            { name: "Bhavesh kumar", roll: "825029", branch: "BCA", sem: "1st Sem", email: "bhavesh754993@gmail.com", phone: "7549915471" },
-            { name: "Gitanjali kumarl", roll: "825188", branch: "BCA", sem: "1st Sem", email: "gk2006.in@gmail.com", phone: "7903938902" },
-            { name: "Soni Kumari", roll: "12552", branch: "CSE", sem: "1st Sem", email: "kumarisoni57884@gmail.com", phone: "9508572481" },
+            { name: "Bhavesh Kumar", roll: "825029", branch: "BCA", sem: "1st Sem", email: "bhavesh754993@gmail.com", phone: "7549915471" },
+            { name: "Gitanjali Kumari", roll: "825188", branch: "BCA", sem: "1st Sem", email: "gk2006.in@gmail.com", phone: "7903938902" },
             { name: "Divya Singh", roll: "12573", branch: "CSE", sem: "1st Sem", email: "divyasinghk4@gmail.com", phone: "9905446912" },
-            // Page 4
             { name: "Prerana Das", roll: "825049", branch: "CSE", sem: "1st Sem", email: "preranadas52@gmail.com", phone: "6299737505" },
             { name: "Alen Sunny", roll: "825086", branch: "BCA", sem: "1st Sem", email: "alensunny0077@gmail.com", phone: "7979840793" },
-            { name: "Masoom Raza", roll: "825086", branch: "BCA", sem: "1st Sem", email: "alensunny0077@gmail.com", phone: "7979840793" }
+            { name: "Masoom Raza", roll: "825086", branch: "BCA", sem: "1st Sem", email: "alensunny0077@gmail.com", phone: "7979840793" },
+            { name: "Yunaina", roll: "825160", branch: "BCA", sem: "1st Sem", email: "yunainakarn370@gmail.com", phone: "8252283039" },
+            { name: "Virat Kumar Singh", roll: "825055", branch: "BCA", sem: "1st Sem", email: "singhvirat12045@gmail.com", phone: "7261839448" }
         ];
 
         // Stats Update
@@ -548,7 +540,6 @@
                     x: { grid: { display: false }, border: { display: false } }
                 },
                 onClick: () => {
-                    // Chart click haptic
                     haptic(25);
                 }
             }
@@ -556,13 +547,12 @@
 
         // HAPTIC: buttons + scroll (speed-based)
         window.addEventListener('DOMContentLoaded', () => {
-            // All buttons vibrate on click
             document.querySelectorAll('button').forEach(btn => {
                 btn.addEventListener('click', () => haptic(18));
             });
 
             const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            if (!isTouch) return; // sirf touch devices pe
+            if (!isTouch) return;
 
             let lastY = window.scrollY;
             let lastTime = performance.now();
@@ -577,18 +567,18 @@
                 lastY = y;
                 lastTime = now;
 
-                const speed = dy / dt; // px per ms
+                const speed = dy / dt; // px/ms
 
                 let minInterval;
                 let duration;
 
-                if (speed < 0.05) {          // bahut slow scroll
+                if (speed < 0.05) {
                     minInterval = 400;
                     duration = 6;
-                } else if (speed < 0.25) {   // normal scroll
+                } else if (speed < 0.25) {
                     minInterval = 220;
                     duration = 10;
-                } else {                     // fast scroll
+                } else {
                     minInterval = 90;
                     duration = 14;
                 }
