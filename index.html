@@ -11,7 +11,7 @@
     <meta name="author" content="Student Community Core ( VVIT ) Technical Team">
     <meta name="robots" content="index, follow">
 
-    <!-- ✅ Open Graph -->
+    <!-- ✅ Open Graph (Facebook, WhatsApp, LinkedIn) – same preview -->
     <meta property="og:site_name" content="Student Community Core ( VVIT )">
     <meta property="og:title" content="Student Community Core ( VVIT ) | Official Dashboard">
     <meta property="og:description" content="Access live student records, department analytics, active batches and the complete directory of CSE & BCA students through the official Student Community Core ( VVIT ) portal.">
@@ -19,10 +19,10 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:type" content="image/png">
-    <meta property="og:url" content="https://gsa-portal.web.app">
+    <meta property="og:url" content="https://gsa-vvit.vercel.app">
     <meta property="og:type" content="website">
 
-    <!-- ✅ Twitter Card -->
+    <!-- ✅ Twitter Card – same preview -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Student Community Core ( VVIT ) | Student Dashboard">
     <meta name="twitter:description" content="Official Student Community Core ( VVIT ) dashboard for student records, department analytics and batch management system.">
@@ -327,270 +327,273 @@
         </div>
     </main>
 
-<script>
-    // === CONFIG: GOOGLE SHEET SYNC (CSV) ===
-    const SHEET_ID = "1Sc6V02qZZIZcbEZVgd3RJbYVxeNXJ7tocjfzS1BtYQk";
-    // gid=0 => first sheet; agar dusre tab ka use karoge to uska gid yahan daal dena
-    const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
+    <!-- JS Logic -->
+    <script>
+        // === CONFIG: GOOGLE SHEET SYNC (CSV) ===
+        // Sheet link: https://docs.google.com/spreadsheets/d/1Sc6V02qZZIZcbEZVgd3RJbYVxeNXJ7tocjfzS1BtYQk/edit?usp=sharing
+        const SHEET_ID = "1Sc6V02qZZIZcbEZVgd3RJbYVxeNXJ7tocjfzS1BtYQk";
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
 
-    let students = [];
-    let chart = null;
+        let students = [];
+        let chart = null;
 
-    // --- Haptic helper ---
-    function haptic(duration = 15) {
-        if (navigator.vibrate) {
-            navigator.vibrate(duration);
-        }
-    }
-
-    // --- View Switching Logic ---
-    function switchView(viewName) {
-        const dashboard = document.getElementById('dashboard-view');
-        const directory = document.getElementById('directory-view');
-        const btnDash = document.getElementById('nav-dashboard');
-        const btnDir = document.getElementById('nav-directory');
-
-        dashboard.classList.add('hidden');
-        directory.classList.add('hidden');
-        btnDash.classList.add('inactive');
-        btnDir.classList.add('inactive');
-
-        if (viewName === 'dashboard') {
-            dashboard.classList.remove('hidden');
-            btnDash.classList.remove('inactive');
-        } else {
-            directory.classList.remove('hidden');
-            btnDir.classList.remove('inactive');
-        }
-    }
-
-    function toggleMobileMenu() {
-        const menu = document.getElementById('mobile-nav');
-        menu.classList.toggle('hidden');
-        menu.classList.toggle('flex');
-    }
-
-    document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
-
-    // --- UI helpers: stats, table, chart ---
-    const tableBody = document.getElementById('tableBody');
-    const noResults = document.getElementById('no-results');
-    const searchInput = document.getElementById('searchInput');
-    const totalStudentsEl = document.getElementById('total-students');
-    const totalRecordsBadgeEl = document.getElementById('total-records-badge');
-    const cseCountEl = document.getElementById('cse-count');
-    const bcaCountEl = document.getElementById('bca-count');
-
-    function updateStats() {
-        totalStudentsEl.textContent = students.length;
-        totalRecordsBadgeEl.textContent = students.length;
-        cseCountEl.textContent = students.filter(s => s.branch.toUpperCase() === 'CSE').length;
-        bcaCountEl.textContent = students.filter(s => s.branch.toUpperCase() === 'BCA').length;
-    }
-
-    function renderTable(data) {
-        tableBody.innerHTML = '';
-        
-        if (data.length === 0) {
-            noResults.classList.remove('hidden');
-            return;
-        } else {
-            noResults.classList.add('hidden');
-        }
-
-        data.forEach(student => {
-            const tr = document.createElement('tr');
-            tr.className = "hover:bg-gray-50 transition-colors";
-            
-            const isCSE = student.branch.toUpperCase() === 'CSE';
-            const avatarBg = isCSE ? 'bg-blue-100 text-blue-600' : 'bg-yellow-100 text-yellow-600';
-            const badgeBg = isCSE ? 'bg-blue-50 text-blue-700' : 'bg-yellow-50 text-yellow-700';
-
-            tr.innerHTML = `
-                <td>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full ${avatarBg} flex items-center justify-center text-xs sm:text-sm font-bold">
-                            ${student.name.substring(0,2).toUpperCase()}
-                        </div>
-                        <div>
-                            <div class="font-bold text-gray-800 text-sm">${student.name}</div>
-                            <div class="text-[10px] text-gray-400 uppercase tracking-wide">Student</div>
-                        </div>
-                    </div>
-                </td>
-                <td class="text-xs sm:text-sm font-mono text-gray-600">${student.roll}</td>
-                <td>
-                    <span class="px-2 py-1 rounded text-[10px] sm:text-xs font-bold uppercase tracking-wide ${badgeBg}">
-                        ${student.branch} - ${(student.sem || '').split(' ')[0] || student.sem}
-                    </span>
-                </td>
-                <td>
-                    <div class="flex flex-col space-y-1 text-[11px] sm:text-xs text-gray-500">
-                         <div class="flex items-center space-x-2">
-                            <i class="fa-regular fa-envelope w-4"></i>
-                            <span class="truncate max-w-[180px] sm:max-w-none">${student.email}</span>
-                         </div>
-                         <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-phone w-4"></i>
-                            <span>${student.phone}</span>
-                         </div>
-                    </div>
-                </td>
-            `;
-            tableBody.appendChild(tr);
-        });
-    }
-
-    function renderChart() {
-        const ctx = document.getElementById('studentChart').getContext('2d');
-
-        const bca1 = students.filter(s => s.branch.toUpperCase() === 'BCA' && s.sem.toLowerCase().includes('1')).length;
-        const bca3 = students.filter(s => s.branch.toUpperCase() === 'BCA' && s.sem.toLowerCase().includes('3')).length;
-        const bca5 = students.filter(s => s.branch.toUpperCase() === 'BCA' && s.sem.toLowerCase().includes('5')).length;
-        const cse1 = students.filter(s => s.branch.toUpperCase() === 'CSE' && s.sem.toLowerCase().includes('1')).length;
-        const cse3 = students.filter(s => s.branch.toUpperCase() === 'CSE' && s.sem.toLowerCase().includes('3')).length;
-
-        const data = [bca1, bca3, bca5, cse1, cse3];
-
-        if (chart) {
-            chart.data.datasets[0].data = data;
-            chart.update();
-            return;
-        }
-
-        chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['BCA 1st', 'BCA 3rd', 'BCA 5th', 'CSE 1st', 'CSE 3rd'],
-                datasets: [{
-                    label: 'Students',
-                    data: data,
-                    backgroundColor: ['#FACC15', '#EAB308', '#CA8A04', '#3B82F6', '#2563EB'],
-                    borderRadius: 8,
-                    barThickness: 32
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { beginAtZero: true, grid: { color: '#f3f4f6' }, border: { display: false } },
-                    x: { grid: { display: false }, border: { display: false } }
-                },
-                onClick: () => {
-                    haptic(25);
-                }
+        // --- Haptic helper ---
+        function haptic(duration = 15) {
+            if (navigator.vibrate) {
+                navigator.vibrate(duration);
             }
-        });
-    }
-
-    // --- SIMPLE CSV PARSER ---
-    function parseCSV(text) {
-        const lines = text.trim().split(/\r?\n/);
-        if (!lines.length) return { header: [], rows: [] };
-
-        const header = lines[0].split(',').map(h => h.trim());
-        const rows = lines.slice(1).map(line => line.split(',').map(c => c.trim()));
-        return { header, rows };
-    }
-
-    // --- GOOGLE SHEET FETCH (CSV) ---
-    async function loadStudentsFromSheet() {
-        try {
-            const res = await fetch(SHEET_URL);
-            const csvText = await res.text();
-
-            const { header, rows } = parseCSV(csvText);
-            const lowerHeader = header.map(h => h.toLowerCase());
-
-            const idxName   = lowerHeader.indexOf('name');
-            const idxRoll   = lowerHeader.indexOf('roll number');
-            const idxBranch = lowerHeader.indexOf('branch');
-            const idxSem    = lowerHeader.indexOf('sem');
-            const idxEmail  = lowerHeader.indexOf('email');
-            const idxPhone  = lowerHeader.indexOf('phone');
-
-            students = rows.map(cols => ({
-                name:   (cols[idxName]   || '').trim(),
-                roll:   (cols[idxRoll]   || '').trim(),
-                branch: (cols[idxBranch] || '').trim(),
-                sem:    idxSem >= 0 ? (cols[idxSem] || '').trim() : '',
-                email:  idxEmail >= 0 ? (cols[idxEmail] || '').trim() : '',
-                phone:  idxPhone >= 0 ? (cols[idxPhone] || '').trim() : ''
-            })).filter(s => s.name && s.roll);
-
-            updateStats();
-            renderTable(students);
-            renderChart();
-        } catch (err) {
-            console.error("Sheet load error:", err);
-            document.getElementById('no-results').classList.remove('hidden');
         }
-    }
 
-    // Search Logic
-    searchInput.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        const filtered = students.filter(s => 
-            s.name.toLowerCase().includes(term) || 
-            s.roll.toLowerCase().includes(term) || 
-            s.branch.toLowerCase().includes(term)
-        );
-        renderTable(filtered);
-    });
+        // --- View Switching Logic ---
+        function switchView(viewName) {
+            const dashboard = document.getElementById('dashboard-view');
+            const directory = document.getElementById('directory-view');
+            const btnDash = document.getElementById('nav-dashboard');
+            const btnDir = document.getElementById('nav-directory');
 
-    // HAPTIC: buttons + scroll (speed-based)
-    function setupHaptics() {
-        document.querySelectorAll('button').forEach(btn => {
-            btn.addEventListener('click', () => haptic(18));
-        });
+            dashboard.classList.add('hidden');
+            directory.classList.add('hidden');
+            btnDash.classList.add('inactive');
+            btnDir.classList.add('inactive');
 
-        const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        if (!isTouch) return;
-
-        let lastY = window.scrollY;
-        let lastTime = performance.now();
-        let lastVibrate = 0;
-
-        window.addEventListener('scroll', () => {
-            const now = performance.now();
-            const y = window.scrollY;
-            const dy = Math.abs(y - lastY);
-            const dt = now - lastTime || 16;
-
-            lastY = y;
-            lastTime = now;
-
-            const speed = dy / dt; // px/ms
-
-            let minInterval;
-            let duration;
-
-            if (speed < 0.05) {
-                minInterval = 400;
-                duration = 6;
-            } else if (speed < 0.25) {
-                minInterval = 220;
-                duration = 10;
+            if (viewName === 'dashboard') {
+                dashboard.classList.remove('hidden');
+                btnDash.classList.remove('inactive');
             } else {
-                minInterval = 90;
-                duration = 14;
+                directory.classList.remove('hidden');
+                btnDir.classList.remove('inactive');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-nav');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // --- UI helpers: stats, table, chart ---
+        const tableBody = document.getElementById('tableBody');
+        const noResults = document.getElementById('no-results');
+        const searchInput = document.getElementById('searchInput');
+        const totalStudentsEl = document.getElementById('total-students');
+        const totalRecordsBadgeEl = document.getElementById('total-records-badge');
+        const cseCountEl = document.getElementById('cse-count');
+        const bcaCountEl = document.getElementById('bca-count');
+
+        function updateStats() {
+            totalStudentsEl.textContent = students.length;
+            totalRecordsBadgeEl.textContent = students.length;
+            cseCountEl.textContent = students.filter(s => s.branch.toUpperCase() === 'CSE').length;
+            bcaCountEl.textContent = students.filter(s => s.branch.toUpperCase() === 'BCA').length;
+        }
+
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            
+            if (data.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
             }
 
-            if (now - lastVibrate > minInterval) {
-                haptic(duration);
-                lastVibrate = now;
+            data.forEach(student => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-gray-50 transition-colors";
+                
+                const isCSE = student.branch.toUpperCase() === 'CSE';
+                const avatarBg = isCSE ? 'bg-blue-100 text-blue-600' : 'bg-yellow-100 text-yellow-600';
+                const badgeBg = isCSE ? 'bg-blue-50 text-blue-700' : 'bg-yellow-50 text-yellow-700';
+
+                tr.innerHTML = `
+                    <td>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full ${avatarBg} flex items-center justify-center text-xs sm:text-sm font-bold">
+                                ${student.name.substring(0,2).toUpperCase()}
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800 text-sm">${student.name}</div>
+                                <div class="text-[10px] text-gray-400 uppercase tracking-wide">Student</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-xs sm:text-sm font-mono text-gray-600">${student.roll}</td>
+                    <td>
+                        <span class="px-2 py-1 rounded text-[10px] sm:text-xs font-bold uppercase tracking-wide ${badgeBg}">
+                            ${student.branch} - ${(student.sem || '').split(' ')[0] || student.sem}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="flex flex-col space-y-1 text-[11px] sm:text-xs text-gray-500">
+                             <div class="flex items-center space-x-2">
+                                <i class="fa-regular fa-envelope w-4"></i>
+                                <span class="truncate max-w-[180px] sm:max-w-none">${student.email}</span>
+                             </div>
+                             <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-phone w-4"></i>
+                                <span>${student.phone}</span>
+                             </div>
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('studentChart').getContext('2d');
+
+            const bca1 = students.filter(s => s.branch.toUpperCase() === 'BCA' && s.sem.toLowerCase().includes('1')).length;
+            const bca3 = students.filter(s => s.branch.toUpperCase() === 'BCA' && s.sem.toLowerCase().includes('3')).length;
+            const bca5 = students.filter(s => s.branch.toUpperCase() === 'BCA' && s.sem.toLowerCase().includes('5')).length;
+            const cse1 = students.filter(s => s.branch.toUpperCase() === 'CSE' && s.sem.toLowerCase().includes('1')).length;
+            const cse3 = students.filter(s => s.branch.toUpperCase() === 'CSE' && s.sem.toLowerCase().includes('3')).length;
+
+            const data = [bca1, bca3, bca5, cse1, cse3];
+
+            if (chart) {
+                chart.data.datasets[0].data = data;
+                chart.update();
+                return;
             }
-        }, { passive: true });
-    }
 
-    // INIT
-    document.addEventListener('DOMContentLoaded', () => {
-        setupHaptics();
-        loadStudentsFromSheet();
-    });
-</script>
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['BCA 1st', 'BCA 3rd', 'BCA 5th', 'CSE 1st', 'CSE 3rd'],
+                    datasets: [{
+                        label: 'Students',
+                        data: data,
+                        backgroundColor: ['#FACC15', '#EAB308', '#CA8A04', '#3B82F6', '#2563EB'],
+                        borderRadius: 8,
+                        barThickness: 32
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#f3f4f6' }, border: { display: false } },
+                        x: { grid: { display: false }, border: { display: false } }
+                    },
+                    onClick: () => {
+                        haptic(25);
+                    }
+                }
+            });
+        }
 
+        // --- SIMPLE CSV PARSER ---
+        function parseCSV(text) {
+            const lines = text.trim().split(/\r?\n/);
+            if (!lines.length) return { header: [], rows: [] };
+
+            const header = lines[0].split(',').map(h => h.trim());
+            const rows = lines.slice(1).map(line => line.split(',').map(c => c.trim()));
+            return { header, rows };
+        }
+
+        // --- GOOGLE SHEET FETCH (CSV) ---
+        async function loadStudentsFromSheet() {
+            try {
+                const res = await fetch(SHEET_URL);
+                const csvText = await res.text();
+
+                const { header, rows } = parseCSV(csvText);
+                const lowerHeader = header.map(h => h.toLowerCase());
+
+                // Column names expected in sheet:
+                // Name | Roll Number | Branch | Sem | Email | Phone
+                const idxName   = lowerHeader.indexOf('name');
+                const idxRoll   = lowerHeader.indexOf('roll number');
+                const idxBranch = lowerHeader.indexOf('branch');
+                const idxSem    = lowerHeader.indexOf('sem');
+                const idxEmail  = lowerHeader.indexOf('email');
+                const idxPhone  = lowerHeader.indexOf('phone');
+
+                students = rows.map(cols => ({
+                    name:   (cols[idxName]   || '').trim(),
+                    roll:   (cols[idxRoll]   || '').trim(),
+                    branch: (cols[idxBranch] || '').trim(),
+                    sem:    idxSem  >= 0 ? (cols[idxSem]  || '').trim() : '',
+                    email:  idxEmail>= 0 ? (cols[idxEmail]|| '').trim() : '',
+                    phone:  idxPhone>= 0 ? (cols[idxPhone]|| '').trim() : ''
+                })).filter(s => s.name && s.roll);
+
+                updateStats();
+                renderTable(students);
+                renderChart();
+            } catch (err) {
+                console.error("Sheet load error:", err);
+                document.getElementById('no-results').classList.remove('hidden');
+            }
+        }
+
+        // Search Logic
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = students.filter(s => 
+                s.name.toLowerCase().includes(term) || 
+                s.roll.toLowerCase().includes(term) || 
+                s.branch.toLowerCase().includes(term)
+            );
+            renderTable(filtered);
+        });
+
+        // HAPTIC: buttons + scroll (speed-based)
+        function setupHaptics() {
+            // All buttons vibrate on click
+            document.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => haptic(18));
+            });
+
+            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (!isTouch) return;
+
+            let lastY = window.scrollY;
+            let lastTime = performance.now();
+            let lastVibrate = 0;
+
+            window.addEventListener('scroll', () => {
+                const now = performance.now();
+                const y = window.scrollY;
+                const dy = Math.abs(y - lastY);
+                const dt = now - lastTime || 16;
+
+                lastY = y;
+                lastTime = now;
+
+                const speed = dy / dt; // px/ms
+
+                let minInterval;
+                let duration;
+
+                if (speed < 0.05) {
+                    minInterval = 400;
+                    duration = 6;
+                } else if (speed < 0.25) {
+                    minInterval = 220;
+                    duration = 10;
+                } else {
+                    minInterval = 90;
+                    duration = 14;
+                }
+
+                if (now - lastVibrate > minInterval) {
+                    haptic(duration);
+                    lastVibrate = now;
+                }
+            }, { passive: true });
+        }
+
+        // INIT
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHaptics();
+            loadStudentsFromSheet();
+        });
+    </script>
 </body>
 </html>
