@@ -139,7 +139,9 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="min-h-screen flex overflow-hidden text-gray-800">
+
+<!-- ❌ overflow-hidden hata diya -->
+<body class="min-h-screen flex text-gray-800">
 
     <!-- Sidebar -->
     <aside class="w-72 sidebar-bg flex flex-col flex-shrink-0 z-20 hidden md:flex shadow-2xl">
@@ -326,6 +328,13 @@
 
     <!-- JS Logic -->
     <script>
+        // --- Haptic Feedback (Vibration on button click) ---
+        function haptic() {
+            if (navigator.vibrate) {
+                navigator.vibrate(15); // 15ms light vibration
+            }
+        }
+
         // --- View Switching Logic ---
         function switchView(viewName) {
             const dashboard = document.getElementById('dashboard-view');
@@ -353,7 +362,15 @@
             menu.classList.toggle('hidden');
             menu.classList.toggle('flex');
         }
+
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // ✅ Sabhi buttons pe haptic lagao
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', haptic);
+            });
+        });
 
         // --- Data: 62 Students (Exact from PDF) ---
         const students = [
