@@ -51,18 +51,15 @@
             background-size: 20px 20px;
         }
 
-        /* Sidebar Gradient - Dark Theme */
         .sidebar-bg {
-            background-color: #111827; /* Gray-900 */
+            background-color: #111827;
         }
 
-        /* Google Brand Colors */
         .text-g-blue { color: #4285F4; }
         .text-g-red { color: #EA4335; }
         .text-g-yellow { color: #FBBC05; }
         .text-g-green { color: #34A853; }
 
-        /* Nav Buttons */
         .nav-btn {
             background: linear-gradient(90deg, #4f46e5 0%, #4338ca 100%);
             box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
@@ -83,7 +80,6 @@
             transform: none;
         }
 
-        /* Stats Card */
         .stats-card {
             background: white;
             border-radius: 16px;
@@ -98,13 +94,11 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        /* Border Colors */
         .border-blue-b { border-bottom-color: #3b82f6; }
         .border-green-b { border-bottom-color: #22c55e; }
         .border-yellow-b { border-bottom-color: #eab308; }
         .border-red-b { border-bottom-color: #ef4444; }
 
-        /* Custom Table */
         .custom-table th {
             font-size: 0.7rem;
             text-transform: uppercase;
@@ -123,7 +117,6 @@
             background-color: #f9fafb;
         }
 
-        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -132,7 +125,6 @@
             animation: fadeIn 0.4s ease-out forwards;
         }
         
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
@@ -144,7 +136,6 @@
 
     <!-- Sidebar -->
     <aside class="w-72 sidebar-bg flex flex-col flex-shrink-0 z-20 hidden md:flex shadow-2xl">
-        <!-- Logo Area -->
         <div class="p-8 pb-4">
             <div class="py-3 px-6 flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
                 <span class="text-4xl font-extrabold tracking-tight drop-shadow-lg">
@@ -154,7 +145,6 @@
             <p class="text-gray-500 text-[10px] uppercase font-bold tracking-widest mt-6 mb-2 pl-2">Main Menu</p>
         </div>
 
-        <!-- Navigation -->
         <nav class="flex-1 px-5 space-y-4">
             <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center space-x-3 px-5 py-4 rounded-xl text-white font-medium text-left">
                 <i class="fa-solid fa-chart-pie w-5 text-lg"></i>
@@ -166,7 +156,6 @@
             </button>
         </nav>
         
-        <!-- Sidebar Footer -->
         <div class="p-6">
              <div class="bg-gray-800/60 rounded-xl p-4 border border-gray-700/50 backdrop-blur-sm">
                  <div class="flex items-center space-x-2 justify-center mb-1">
@@ -204,9 +193,7 @@
                 <p class="text-gray-500 mt-1 text-sm">Real-time overview of student performance & metrics.</p>
             </header>
 
-            <!-- Stats Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
-                <!-- Total -->
                 <div class="stats-card p-5 sm:p-6 border-blue-b">
                     <div class="flex justify-between items-start">
                         <div>
@@ -220,7 +207,6 @@
                     </div>
                 </div>
 
-                <!-- CSE -->
                 <div class="stats-card p-5 sm:p-6 border-green-b">
                     <div class="flex justify-between items-start">
                         <div>
@@ -234,7 +220,6 @@
                     </div>
                 </div>
 
-                <!-- BCA -->
                 <div class="stats-card p-5 sm:p-6 border-yellow-b">
                     <div class="flex justify-between items-start">
                         <div>
@@ -248,7 +233,6 @@
                     </div>
                 </div>
 
-                <!-- Batches -->
                 <div class="stats-card p-5 sm:p-6 border-red-b">
                     <div class="flex justify-between items-start">
                         <div>
@@ -263,7 +247,6 @@
                 </div>
             </div>
 
-            <!-- Chart Section -->
             <div class="bg-white rounded-2xl shadow-sm p-4 sm:p-8 mb-6 sm:mb-8 border border-gray-100">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 sm:mb-6 gap-3">
                     <h3 class="text-lg sm:text-xl font-bold text-gray-800">Student Distribution</h3>
@@ -286,7 +269,6 @@
             </header>
 
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 flex-1 flex flex-col overflow-hidden">
-                <!-- Toolbar -->
                 <div class="p-4 sm:p-5 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4 bg-gray-50/30">
                     <div class="flex items-center space-x-2">
                          <span class="bg-indigo-50 px-3 sm:px-4 py-1.5 rounded-lg border border-indigo-100 text-[11px] sm:text-xs font-bold text-indigo-700 uppercase tracking-wide">
@@ -300,7 +282,6 @@
                     </div>
                 </div>
 
-                <!-- Table Container -->
                 <div class="flex-1 overflow-y-auto overflow-x-auto">
                     <table class="w-full min-w-[650px] text-left border-collapse custom-table">
                         <thead class="sticky top-0 z-10 shadow-sm">
@@ -311,9 +292,7 @@
                                 <th>Contact</th>
                             </tr>
                         </thead>
-                        <tbody id="tableBody">
-                            <!-- JS Populates this -->
-                        </tbody>
+                        <tbody id="tableBody"></tbody>
                     </table>
                 </div>
                 
@@ -325,16 +304,15 @@
         </div>
     </main>
 
-    <!-- JS Logic -->
     <script>
-        // --- Haptic Feedback (Vibration helper) ---
+        // --- Haptic helper ---
         function haptic(duration = 15) {
             if (navigator.vibrate) {
-                navigator.vibrate(duration); // light vibration
+                navigator.vibrate(duration);
             }
         }
 
-        // --- View Switching Logic ---
+        // View switching
         function switchView(viewName) {
             const dashboard = document.getElementById('dashboard-view');
             const directory = document.getElementById('directory-view');
@@ -343,7 +321,6 @@
 
             dashboard.classList.add('hidden');
             directory.classList.add('hidden');
-            
             btnDash.classList.add('inactive');
             btnDir.classList.add('inactive');
 
@@ -364,31 +341,8 @@
 
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
 
-        // ✅ Buttons + Scroll pe haptic
-        window.addEventListener('DOMContentLoaded', () => {
-            // sabhi buttons pe haptic
-            document.querySelectorAll('button').forEach(btn => {
-                btn.addEventListener('click', () => haptic(15));
-            });
-
-            // sirf touch devices pe scroll haptic
-            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-            if (isTouch) {
-                let lastVibrate = 0;
-                window.addEventListener('scroll', () => {
-                    const now = Date.now();
-                    if (now - lastVibrate > 300) { // har 300ms me max ek baar
-                        haptic(8);
-                        lastVibrate = now;
-                    }
-                }, { passive: true });
-            }
-        });
-
-        // --- Data: 62 Students (Exact from PDF) ---
+        // --- DATA ---
         const students = [
-            // Page 1
             { name: "Anushka Jha", roll: "12464", branch: "CSE", sem: "3rd Sem", email: "anushka.jha1705@gmail.com", phone: "7633979154" },
             { name: "Aparna Kumari", roll: "12463", branch: "CSE", sem: "3rd Sem", email: "kaparna767@gmail.com", phone: "9153681400" },
             { name: "Vivek Kumar Sah", roll: "12458", branch: "CSE", sem: "3rd Sem", email: "studevivek2004@gmail.com", phone: "9570666092" },
@@ -408,7 +362,7 @@
             { name: "Komal Kumari", roll: "12562", branch: "CSE", sem: "1st Sem", email: "komalkumari.singh741@gmail.com", phone: "7633017976" },
             { name: "Anubhav Kumar", roll: "12570", branch: "CSE", sem: "1st Sem", email: "brandedanshu@gmail.com", phone: "7479822720" },
             { name: "Jay Kumar", roll: "824082", branch: "BCA", sem: "3rd Sem", email: "jayadav@gmail.com", phone: "9570871346" },
-            // Page 2
+
             { name: "Sakshi Kumari", roll: "824185", branch: "BCA", sem: "3rd Sem", email: "adorablesakshi0007@gmail.com", phone: "8809733546" },
             { name: "Hasan Raja", roll: "825083", branch: "BCA", sem: "1st Sem", email: "hassan8825083@gmail.com", phone: "9939247792" },
             { name: "Kinshu Kumar", roll: "825094", branch: "BCA", sem: "1st Sem", email: "xaekks@gmail.com", phone: "8809097140" },
@@ -429,7 +383,7 @@
             { name: "Pratibha Roy", roll: "825091", branch: "BCA", sem: "1st Sem", email: "raypratibha45@gmail.com", phone: "6299271296" },
             { name: "Sujal Kumar", roll: "12559", branch: "CSE", sem: "1st Sem", email: "anshu0101roy@gmail.com", phone: "9631982209" },
             { name: "Manjesh Kumar", roll: "12542", branch: "CSE", sem: "1st Sem", email: "Manjeshroy987@gmail.com", phone: "7549489579" },
-            // Page 3
+
             { name: "Rishabh Singh", roll: "823051", branch: "BCA", sem: "5th Sem", email: "rishabhsingh8409@gmail.com", phone: "8340555204" },
             { name: "Snigdha Singh", roll: "12447", branch: "CSE", sem: "3rd Sem", email: "snigdhasingh879@gmail.com", phone: "8299420617" },
             { name: "Neha Kumari", roll: "825099", branch: "BCA", sem: "1st Sem", email: "nehakumari471650@gmail.com", phone: "9279997018" },
@@ -450,26 +404,25 @@
             { name: "Gitanjali kumarl", roll: "825188", branch: "BCA", sem: "1st Sem", email: "gk2006.in@gmail.com", phone: "7903938902" },
             { name: "Soni Kumari", roll: "12552", branch: "CSE", sem: "1st Sem", email: "kumarisoni57884@gmail.com", phone: "9508572481" },
             { name: "Divya Singh", roll: "12573", branch: "CSE", sem: "1st Sem", email: "divyasinghk4@gmail.com", phone: "9905446912" },
-            // Page 4
+
             { name: "Prerana Das", roll: "825049", branch: "CSE", sem: "1st Sem", email: "preranadas52@gmail.com", phone: "6299737505" },
             { name: "Alen Sunny", roll: "825086", branch: "BCA", sem: "1st Sem", email: "alensunny0077@gmail.com", phone: "7979840793" },
             { name: "Masoom Raza", roll: "825086", branch: "BCA", sem: "1st Sem", email: "alensunny0077@gmail.com", phone: "7979840793" }
         ];
 
-        // Stats Update
+        // Stats
         document.getElementById('total-students').textContent = students.length;
         document.getElementById('total-records-badge').textContent = students.length;
         document.getElementById('cse-count').textContent = students.filter(s => s.branch === 'CSE').length;
         document.getElementById('bca-count').textContent = students.filter(s => s.branch === 'BCA').length;
 
-        // Render Table
+        // Table render
         const tableBody = document.getElementById('tableBody');
         const noResults = document.getElementById('no-results');
         const searchInput = document.getElementById('searchInput');
 
         function renderTable(data) {
             tableBody.innerHTML = '';
-            
             if (data.length === 0) {
                 noResults.classList.remove('hidden');
                 return;
@@ -480,7 +433,6 @@
             data.forEach(student => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-gray-50 transition-colors";
-                
                 const isCSE = student.branch === 'CSE';
                 const avatarBg = isCSE ? 'bg-blue-100 text-blue-600' : 'bg-yellow-100 text-yellow-600';
                 const badgeBg = isCSE ? 'bg-blue-50 text-blue-700' : 'bg-yellow-50 text-yellow-700';
@@ -522,7 +474,6 @@
 
         renderTable(students);
 
-        // Search Logic
         searchInput.addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
             const filtered = students.filter(s => 
@@ -541,7 +492,7 @@
         const cse1 = students.filter(s => s.branch === 'CSE' && s.sem === '1st Sem').length;
         const cse3 = students.filter(s => s.branch === 'CSE' && s.sem === '3rd Sem').length;
 
-        new Chart(ctx, {
+        const chart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['BCA 1st', 'BCA 3rd', 'BCA 5th', 'CSE 1st', 'CSE 3rd'],
@@ -560,8 +511,57 @@
                 scales: {
                     y: { beginAtZero: true, grid: { color: '#f3f4f6' }, border: { display: false } },
                     x: { grid: { display: false }, border: { display: false } }
+                },
+                onClick: () => {
+                    // chart click haptic
+                    haptic(25);
                 }
             }
+        });
+
+        // HAPTIC: buttons + scroll (speed based)
+        window.addEventListener('DOMContentLoaded', () => {
+            // All buttons vibrate
+            document.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => haptic(18));
+            });
+
+            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (!isTouch) return; // sirf touch devices pe
+
+            let lastY = window.scrollY;
+            let lastTime = performance.now();
+            let lastVibrate = 0;
+
+            window.addEventListener('scroll', () => {
+                const now = performance.now();
+                const y = window.scrollY;
+                const dy = Math.abs(y - lastY);
+                const dt = now - lastTime || 16;
+                lastY = y;
+                lastTime = now;
+
+                const speed = dy / dt; // px per ms
+
+                let minInterval;
+                let duration;
+
+                if (speed < 0.05) {          // bahut slow scroll
+                    minInterval = 400;
+                    duration = 6;
+                } else if (speed < 0.25) {   // normal scroll
+                    minInterval = 220;
+                    duration = 10;
+                } else {                     // fast scroll
+                    minInterval = 90;
+                    duration = 14;
+                }
+
+                if (now - lastVibrate > minInterval) {
+                    haptic(duration);
+                    lastVibrate = now;
+                }
+            }, { passive: true });
         });
     </script>
 </body>
