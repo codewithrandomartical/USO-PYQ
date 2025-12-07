@@ -27,10 +27,8 @@
     <meta name="twitter:title" content="G.S.A Student Portal | Student Dashboard">
     <meta name="twitter:description" content="Official G.S.A dashboard for student records, department analytics and batch management system.">
     <meta name="twitter:image" content="https://i.ibb.co/7ty6G1zs/Screenshot-2025-12-07-at-3-05-22-PM.png">
-</head>
 
-
-    <!-- Favicon (Using Google Blue) -->
+    <!-- ✅ Favicon -->
     <link rel="icon" href="https://ui-avatars.com/api/?name=G&background=4285F4&color=fff&rounded=true" type="image/png">
 
     <!-- Tailwind CSS -->
@@ -108,16 +106,18 @@
 
         /* Custom Table */
         .custom-table th {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: #6b7280;
             background-color: #f9fafb;
-            padding: 1rem;
+            padding: 0.75rem;
+            white-space: nowrap;
         }
         .custom-table td {
-            padding: 1rem;
+            padding: 0.75rem;
             border-bottom: 1px solid #f3f4f6;
+            font-size: 0.8rem;
         }
         .custom-table tr:hover td {
             background-color: #f9fafb;
@@ -139,7 +139,7 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="h-screen flex overflow-hidden text-gray-800">
+<body class="min-h-screen flex overflow-hidden text-gray-800">
 
     <!-- Sidebar -->
     <aside class="w-72 sidebar-bg flex flex-col flex-shrink-0 z-20 hidden md:flex shadow-2xl">
@@ -194,84 +194,84 @@
     </div>
 
     <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto p-4 md:p-8 pt-20 md:pt-8 relative">
+    <main class="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-8 pt-20 md:pt-8 relative">
         
         <!-- DASHBOARD VIEW -->
         <div id="dashboard-view" class="max-w-7xl mx-auto animate-fade-in">
-            <header class="mb-8">
-                <h1 class="text-3xl font-extrabold text-gray-800">Dashboard</h1>
-                <p class="text-gray-500 mt-1">Real-time overview of student performance & metrics.</p>
+            <header class="mb-5 sm:mb-8">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-800">Dashboard</h1>
+                <p class="text-gray-500 mt-1 text-sm">Real-time overview of student performance & metrics.</p>
             </header>
 
             <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <!-- Total -->
-                <div class="stats-card p-6 border-blue-b">
+                <div class="stats-card p-5 sm:p-6 border-blue-b">
                     <div class="flex justify-between items-start">
                         <div>
-                            <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 mb-4">
-                                <i class="fa-solid fa-users text-xl"></i>
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 mb-4">
+                                <i class="fa-solid fa-users text-lg sm:text-xl"></i>
                             </div>
-                            <h2 class="text-4xl font-extrabold text-gray-800" id="total-students">62</h2>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">Total Students</p>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800" id="total-students">62</h2>
+                            <p class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">Total Students</p>
                         </div>
-                        <div class="absolute -right-6 -top-6 w-24 h-24 bg-blue-50 rounded-full opacity-50"></div>
+                        <div class="absolute -right-6 -top-6 w-20 h-20 sm:w-24 sm:h-24 bg-blue-50 rounded-full opacity-50"></div>
                     </div>
                 </div>
 
                 <!-- CSE -->
-                <div class="stats-card p-6 border-green-b">
+                <div class="stats-card p-5 sm:p-6 border-green-b">
                     <div class="flex justify-between items-start">
                         <div>
-                            <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center text-green-600 mb-4">
-                                <i class="fa-solid fa-code text-xl"></i>
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-green-50 flex items-center justify-center text-green-600 mb-4">
+                                <i class="fa-solid fa-code text-lg sm:text-xl"></i>
                             </div>
-                            <h2 class="text-4xl font-extrabold text-gray-800" id="cse-count">0</h2>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">CSE Dept</p>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800" id="cse-count">0</h2>
+                            <p class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">CSE Dept</p>
                         </div>
-                        <div class="absolute -right-6 -top-6 w-24 h-24 bg-green-50 rounded-full opacity-50"></div>
+                        <div class="absolute -right-6 -top-6 w-20 h-20 sm:w-24 sm:h-24 bg-green-50 rounded-full opacity-50"></div>
                     </div>
                 </div>
 
                 <!-- BCA -->
-                <div class="stats-card p-6 border-yellow-b">
+                <div class="stats-card p-5 sm:p-6 border-yellow-b">
                     <div class="flex justify-between items-start">
                         <div>
-                            <div class="w-12 h-12 rounded-xl bg-yellow-50 flex items-center justify-center text-yellow-600 mb-4">
-                                <i class="fa-solid fa-laptop-code text-xl"></i>
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-yellow-50 flex items-center justify-center text-yellow-600 mb-4">
+                                <i class="fa-solid fa-laptop-code text-lg sm:text-xl"></i>
                             </div>
-                            <h2 class="text-4xl font-extrabold text-gray-800" id="bca-count">0</h2>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">BCA Dept</p>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800" id="bca-count">0</h2>
+                            <p class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">BCA Dept</p>
                         </div>
-                        <div class="absolute -right-6 -top-6 w-24 h-24 bg-yellow-50 rounded-full opacity-50"></div>
+                        <div class="absolute -right-6 -top-6 w-20 h-20 sm:w-24 sm:h-24 bg-yellow-50 rounded-full opacity-50"></div>
                     </div>
                 </div>
 
                 <!-- Batches -->
-                <div class="stats-card p-6 border-red-b">
+                <div class="stats-card p-5 sm:p-6 border-red-b">
                     <div class="flex justify-between items-start">
                         <div>
-                            <div class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center text-red-600 mb-4">
-                                <i class="fa-solid fa-layer-group text-xl"></i>
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-50 flex items-center justify-center text-red-600 mb-4">
+                                <i class="fa-solid fa-layer-group text-lg sm:text-xl"></i>
                             </div>
-                            <h2 class="text-4xl font-extrabold text-gray-800">5</h2>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">Active Batches</p>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-800">5</h2>
+                            <p class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">Active Batches</p>
                         </div>
-                        <div class="absolute -right-6 -top-6 w-24 h-24 bg-red-50 rounded-full opacity-50"></div>
+                        <div class="absolute -right-6 -top-6 w-20 h-20 sm:w-24 sm:h-24 bg-red-50 rounded-full opacity-50"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Chart Section -->
-            <div class="bg-white rounded-2xl shadow-sm p-8 mb-8 border border-gray-100">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-6">
-                    <h3 class="text-xl font-bold text-gray-800">Student Distribution</h3>
-                    <div class="flex space-x-3 mt-4 md:mt-0">
-                        <span class="flex items-center text-xs font-bold text-gray-500 bg-gray-50 px-3 py-1 rounded-full"><span class="w-2.5 h-2.5 rounded-full bg-blue-500 mr-2"></span> CSE</span>
-                        <span class="flex items-center text-xs font-bold text-gray-500 bg-gray-50 px-3 py-1 rounded-full"><span class="w-2.5 h-2.5 rounded-full bg-yellow-400 mr-2"></span> BCA</span>
+            <div class="bg-white rounded-2xl shadow-sm p-4 sm:p-8 mb-6 sm:mb-8 border border-gray-100">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 sm:mb-6 gap-3">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-800">Student Distribution</h3>
+                    <div class="flex flex-wrap space-x-2 md:space-x-3">
+                        <span class="flex items-center text-[11px] sm:text-xs font-bold text-gray-500 bg-gray-50 px-3 py-1 rounded-full"><span class="w-2.5 h-2.5 rounded-full bg-blue-500 mr-2"></span> CSE</span>
+                        <span class="flex items-center text-[11px] sm:text-xs font-bold text-gray-500 bg-gray-50 px-3 py-1 rounded-full"><span class="w-2.5 h-2.5 rounded-full bg-yellow-400 mr-2"></span> BCA</span>
                     </div>
                 </div>
-                <div class="h-80 w-full">
+                <div class="h-64 md:h-80 w-full">
                     <canvas id="studentChart"></canvas>
                 </div>
             </div>
@@ -279,35 +279,35 @@
 
         <!-- DIRECTORY VIEW -->
         <div id="directory-view" class="hidden max-w-7xl mx-auto h-full flex flex-col animate-fade-in">
-            <header class="mb-6 flex-shrink-0">
-                <h1 class="text-3xl font-extrabold text-gray-800">Student Directory</h1>
-                <p class="text-gray-500 mt-1">Complete list of registered students from PDF records.</p>
+            <header class="mb-4 sm:mb-6 flex-shrink-0">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-800">Student Directory</h1>
+                <p class="text-gray-500 mt-1 text-sm">Complete list of registered students from PDF records.</p>
             </header>
 
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 flex-1 flex flex-col overflow-hidden">
                 <!-- Toolbar -->
-                <div class="p-5 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-50/30">
+                <div class="p-4 sm:p-5 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4 bg-gray-50/30">
                     <div class="flex items-center space-x-2">
-                         <span class="bg-indigo-50 px-4 py-1.5 rounded-lg border border-indigo-100 text-xs font-bold text-indigo-700 uppercase tracking-wide">
+                         <span class="bg-indigo-50 px-3 sm:px-4 py-1.5 rounded-lg border border-indigo-100 text-[11px] sm:text-xs font-bold text-indigo-700 uppercase tracking-wide">
                             Total Records: <span id="total-records-badge" class="ml-1 text-sm">62</span>
                          </span>
                     </div>
                     
                     <div class="relative w-full md:w-96">
                         <i class="fa-solid fa-search absolute left-3.5 top-3.5 text-gray-400 text-sm"></i>
-                        <input type="text" id="searchInput" placeholder="Search by name, roll no or branch..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm bg-white shadow-sm transition-all">
+                        <input type="text" id="searchInput" placeholder="Search by name, roll no or branch..." class="w-full pl-9 pr-4 py-2.5 sm:py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm bg-white shadow-sm transition-all">
                     </div>
                 </div>
 
                 <!-- Table Container -->
-                <div class="flex-1 overflow-auto">
-                    <table class="w-full text-left border-collapse custom-table">
+                <div class="flex-1 overflow-y-auto overflow-x-auto">
+                    <table class="w-full min-w-[650px] text-left border-collapse custom-table">
                         <thead class="sticky top-0 z-10 shadow-sm">
                             <tr>
-                                <th width="35%">Student Profile</th>
-                                <th width="15%">Roll No</th>
-                                <th width="20%">Branch / Sem</th>
-                                <th width="30%">Contact</th>
+                                <th>Student Profile</th>
+                                <th>Roll No</th>
+                                <th>Branch / Sem</th>
+                                <th>Contact</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -316,9 +316,9 @@
                     </table>
                 </div>
                 
-                <div id="no-results" class="hidden p-12 text-center text-gray-400">
-                    <i class="fa-regular fa-folder-open text-4xl mb-3 opacity-50"></i>
-                    <p class="mt-2 font-medium">No students found matching your search.</p>
+                <div id="no-results" class="hidden p-10 sm:p-12 text-center text-gray-400">
+                    <i class="fa-regular fa-folder-open text-3xl sm:text-4xl mb-3 opacity-50"></i>
+                    <p class="mt-2 font-medium text-sm sm:text-base">No students found matching your search.</p>
                 </div>
             </div>
         </div>
@@ -358,10 +358,10 @@
         // --- Data: 62 Students (Exact from PDF) ---
         const students = [
             // Page 1
-            { name: "Kumar Priyam", roll: "12422", branch: "CSE", sem: "3rd Sem", email: "priyamlapy9@gmail.com", phone: "7903906461" },
-            { name: "Vivek Kumar Sah", roll: "12458", branch: "CSE", sem: "3rd Sem", email: "studevivek2004@gmail.com", phone: "9570666092" },
-            { name: "Aparna Kumari", roll: "12463", branch: "CSE", sem: "3rd Sem", email: "kaparna767@gmail.com", phone: "9153681400" },
             { name: "Anushka Jha", roll: "12464", branch: "CSE", sem: "3rd Sem", email: "anushka.jha1705@gmail.com", phone: "7633979154" },
+            { name: "Aparna Kumari", roll: "12463", branch: "CSE", sem: "3rd Sem", email: "kaparna767@gmail.com", phone: "9153681400" },
+            { name: "Vivek Kumar Sah", roll: "12458", branch: "CSE", sem: "3rd Sem", email: "studevivek2004@gmail.com", phone: "9570666092" },
+            { name: "Kumar Priyam", roll: "12422", branch: "CSE", sem: "3rd Sem", email: "priyamlapy9@gmail.com", phone: "7903906461" },
             { name: "Aditya Kumar Raj", roll: "12514", branch: "CSE", sem: "1st Sem", email: "aditya1852005@gmail.com", phone: "968020248" },
             { name: "Rahul Kumar", roll: "12526", branch: "CSE", sem: "1st Sem", email: "rahul9128703420@gmail.com", phone: "9128703420" },
             { name: "Ankit Kumar", roll: "12530", branch: "CSE", sem: "1st Sem", email: "ankit95071kumar2008@gmail.com", phone: "9234990891" },
@@ -450,7 +450,6 @@
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-gray-50 transition-colors";
                 
-                // Avatar Color Logic
                 const isCSE = student.branch === 'CSE';
                 const avatarBg = isCSE ? 'bg-blue-100 text-blue-600' : 'bg-yellow-100 text-yellow-600';
                 const badgeBg = isCSE ? 'bg-blue-50 text-blue-700' : 'bg-yellow-50 text-yellow-700';
@@ -458,7 +457,7 @@
                 tr.innerHTML = `
                     <td>
                         <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 rounded-full ${avatarBg} flex items-center justify-center text-sm font-bold">
+                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full ${avatarBg} flex items-center justify-center text-xs sm:text-sm font-bold">
                                 ${student.name.substring(0,2).toUpperCase()}
                             </div>
                             <div>
@@ -467,17 +466,17 @@
                             </div>
                         </div>
                     </td>
-                    <td class="text-sm font-mono text-gray-600">${student.roll}</td>
+                    <td class="text-xs sm:text-sm font-mono text-gray-600">${student.roll}</td>
                     <td>
-                        <span class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wide ${badgeBg}">
+                        <span class="px-2 py-1 rounded text-[10px] sm:text-xs font-bold uppercase tracking-wide ${badgeBg}">
                             ${student.branch} - ${student.sem.split(' ')[0]}
                         </span>
                     </td>
                     <td>
-                        <div class="flex flex-col space-y-1 text-xs text-gray-500">
+                        <div class="flex flex-col space-y-1 text-[11px] sm:text-xs text-gray-500">
                              <div class="flex items-center space-x-2">
                                 <i class="fa-regular fa-envelope w-4"></i>
-                                <span>${student.email}</span>
+                                <span class="truncate max-w-[180px] sm:max-w-none">${student.email}</span>
                              </div>
                              <div class="flex items-center space-x-2">
                                 <i class="fa-solid fa-phone w-4"></i>
@@ -520,7 +519,7 @@
                     data: [bca1, bca3, bca5, cse1, cse3],
                     backgroundColor: ['#FACC15', '#EAB308', '#CA8A04', '#3B82F6', '#2563EB'],
                     borderRadius: 8,
-                    barThickness: 40
+                    barThickness: 32
                 }]
             },
             options: {
