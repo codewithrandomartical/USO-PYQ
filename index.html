@@ -328,49 +328,62 @@
 
     <!-- JS Logic -->
     <script>
-        // --- Haptic Feedback (Vibration on button click) ---
-        function haptic() {
-            if (navigator.vibrate) {
-                navigator.vibrate(15); // 15ms light vibration
-            }
+// --- Haptic Feedback (Vibration helper) ---
+function haptic(duration = 15) {
+    if (navigator.vibrate) {
+        navigator.vibrate(duration); // light vibration
+    }
+}
+
+// --- View Switching Logic ---
+function switchView(viewName) {
+    const dashboard = document.getElementById('dashboard-view');
+    const directory = document.getElementById('directory-view');
+    const btnDash = document.getElementById('nav-dashboard');
+    const btnDir = document.getElementById('nav-directory');
+
+    dashboard.classList.add('hidden');
+    directory.classList.add('hidden');
+    
+    btnDash.classList.add('inactive');
+    btnDir.classList.add('inactive');
+
+    if (viewName === 'dashboard') {
+        dashboard.classList.remove('hidden');
+        btnDash.classList.remove('inactive');
+    } else {
+        directory.classList.remove('hidden');
+        btnDir.classList.remove('inactive');
+    }
+}
+
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-nav');
+    menu.classList.toggle('hidden');
+    menu.classList.toggle('flex');
+}
+
+document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+// ✅ Buttons + Scroll dono pe vibration
+window.addEventListener('DOMContentLoaded', () => {
+    // sabhi buttons pe haptic
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => haptic(15));
+    });
+
+    // scroll ke time haptic (throttled)
+    let lastVibrate = 0;
+    window.addEventListener('scroll', () => {
+        const now = Date.now();
+        // har 300ms me max ek baar vibrate
+        if (now - lastVibrate > 300) {
+            haptic(8); // thoda chhota pulse
+            lastVibrate = now;
         }
+    }, { passive: true });
+});
 
-        // --- View Switching Logic ---
-        function switchView(viewName) {
-            const dashboard = document.getElementById('dashboard-view');
-            const directory = document.getElementById('directory-view');
-            const btnDash = document.getElementById('nav-dashboard');
-            const btnDir = document.getElementById('nav-directory');
-
-            dashboard.classList.add('hidden');
-            directory.classList.add('hidden');
-            
-            btnDash.classList.add('inactive');
-            btnDir.classList.add('inactive');
-
-            if (viewName === 'dashboard') {
-                dashboard.classList.remove('hidden');
-                btnDash.classList.remove('inactive');
-            } else {
-                directory.classList.remove('hidden');
-                btnDir.classList.remove('inactive');
-            }
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-nav');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        }
-
-        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
-
-        // ✅ Sabhi buttons pe haptic lagao
-        window.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('button').forEach(btn => {
-                btn.addEventListener('click', haptic);
-            });
-        });
 
         // --- Data: 62 Students (Exact from PDF) ---
         const students = [
